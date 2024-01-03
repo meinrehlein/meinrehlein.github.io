@@ -4,5 +4,5 @@ import { defineConfig } from 'astro/config';
 export default defineConfig({
 
 site: 'https://meinrehlein.github.io',
-base: '/meinrehlein',
+
 });
