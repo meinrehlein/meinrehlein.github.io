@@ -1,0 +1,90 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Card from '../components/Card.astro';
+---
+
+<Layout title="Welcome to Astro.">
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=2.0">
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: black;
+      color: white;
+      font-size: 2em;
+      white-space: nowrap;
+    }
+
+    #poem-container {
+      overflow: hidden;
+      width: 100%;
+      text-align: center;
+    }
+
+    .word {
+      display: inline-block;
+      white-space: nowrap;
+      opacity: 0;
+      transition: opacity 0.9s ease-in-out;
+    }
+  </style>
+</head>
+<body>
+  <div id="poem-container">
+    <p class="word">Wer</p>
+    <p class="word">reitet</p>
+    <p class="word">so</p>
+    <p class="word">spät</p>
+    <p class="word">durch</p>
+    <p class="word">Nacht</p>
+    <p class="word">und</p>
+    <p class="word">Wind?</p>
+    <p class="word">Es</p>
+    <p class="word">ist</p>
+    <p class="word">der</p>
+    <p class="word">Vater</p>
+    <p class="word">mit</p>
+    <p class="word">seinem</p>
+    <p class="word">Kind;</p>
+    <p class="word">Er</p>
+    <p class="word">hat</p>
+    <p class="word">den</p>
+    <p class="word">Knaben</p>
+    <p class="word">wohl</p>
+    <p class="word">in</p>
+    <p class="word">dem</p>
+    <p class="word">Arm,</p>
+    <!-- Add more lines and words as needed -->
+  </div>
+
+  <script>
+    document.addEventListener('mousemove', function(event) {
+      const poemContainer = document.getElementById('poem-container');
+      const words = poemContainer.getElementsByClassName('word');
+      const cursorX = event.clientX;
+      const containerWidth = poemContainer.clientWidth;
+
+      const progress = Math.min(cursorX / containerWidth, 1);
+      const totalWords = words.length;
+
+      const currentWord = Math.floor(progress * totalWords);
+      
+      // Show only the current word
+      for (let i = 0; i < totalWords; i++) {
+        if (i === currentWord) {
+          words[i].style.opacity = 1;
+        } else {
+          words[i].style.opacity = 0;
+        }
+      }
+    });
+  </script>
+</body>
+</html>

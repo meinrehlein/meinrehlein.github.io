@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rectangles Page</title>
+<style>
+  body {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .rectangle {
+    width: 16.6667%;
+    height: 100vh;
+    float: left;
+    position: relative;
+    cursor: pointer;
+    background-color: white; /* This is to visualize the rectangles */
+  }
+  
+  .rectangle:hover .word {
+    opacity: 1;
+  }
+  
+  .word {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: black; /* Black text on white rectangles */
+    font-size: 24px;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+</style>
+</head>
+<body>
+
+<div class="rectangle" onclick="navigateToPage('Word1')">
+  <div class="word">Word1</div>
+</div>
+<div class="rectangle" onclick="navigateToPage('Word2')">
+  <div class="word">Word2</div>
+</div>
+
+<script>
+  function navigateToPage(word) {
+    console.log("Navigating to:", word); // For debugging
+    window.location.href = word.toLowerCase() + '.html';
+  }
+</script>
+
+</body>
+</html>

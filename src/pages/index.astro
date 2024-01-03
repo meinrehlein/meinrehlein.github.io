@@ -1,1 +1,91 @@
-"hello world" 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Rectangles Page</title>
+<style>
+  body {
+    background-color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+  }
+  
+  .rectangle {
+    width: 12.5%;
+    height: 100vh;
+    float: left;
+    position: relative;
+    cursor: pointer;
+    background-color: rgb(0, 0, 0); /* This is to visualize the rectangles */
+  }
+  
+  .rectangle:hover .word {
+    opacity: 1;
+  }
+  
+  .word {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(231, 145, 145); /* Black text on white rectangles */
+    font-size: 3vw;
+    opacity: 0;
+    transition: opacity 2s ease;
+  }
+</style>
+</head>
+<body>
+
+<div class="rectangle">
+  <a href="word1.html" style="text-decoration: none; color: black;">
+    <div class="word">about</div>
+  </a>
+</div>
+
+<div class="rectangle">
+  <a href="word2.html" style="text-decoration: none; color: black;">
+    <div class="word">projects</div>
+  </a>
+</div>
+
+<div class="rectangle">
+  <a href="word3.html" style="text-decoration: none; color: black;">
+    <div class="word">light</div>
+  </a>
+</div>
+
+<div class="rectangle">
+  <a href="word4.html" style="text-decoration: none; color: black;">
+    <div class="word">camera</div>
+  </a>
+</div>
+
+<div class="rectangle">
+  <a href="friends.html" style="text-decoration: none; color: black;">
+    <div class="word">friends</div>
+  </a>
+</div>
+
+<div class="rectangle">
+  <a href="word6.html" style="text-decoration: none; color: black;">
+    <div class="word">contact</div>
+  </a>
+</div>
+
+<div class="rectangle">
+	<a href="word2.html" style="text-decoration: none; color: black;">
+	  <div class="word">projects</div>
+	</a>
+  </div>
+
+  <div class="rectangle">
+	<a href="word2.html" style="text-decoration: none; color: black;">
+	  <div class="word">projects</div>
+	</a>
+  </div>
+  
+
+</body>
+</html>
+
