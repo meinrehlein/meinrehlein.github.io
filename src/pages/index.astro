@@ -17,7 +17,9 @@
     }
 
     /* MOBILE LAYOUT */
-  
+
+    @media only screen and (max-device-width: 768px) {
+   
     .mobile-layout {
       display: block;  /* Default: Mobile layout is displayed */
     }
@@ -37,7 +39,7 @@
       display: flex;
       justify-content: center;  /* Center horizontally */
       align-items: center;  /* Center vertically */
-      background-color: rgb(20, 67, 221);  /* Full black, no white at the bottom */
+      background-color: rgb(0, 0, 255);  /* Full black, no white at the bottom */
     }
 
     .mobile-layout .inner {
@@ -46,7 +48,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: rgb(20, 67, 221);  /* Black background for inner content */
+      background-color: rgb(0, 0, 255);  /* Black background for inner content */
     }
 
     /* Links on mobile - ensure white color, remove blue underline */
@@ -68,9 +70,10 @@
       border-bottom: 0px solid #000;  /* Remove any border or gaps at the end */
     }
   }
+  
 
     /* DESKTOP LAYOUT */
-    @media only screen and (min-width: 768px) {
+    @media only screen and (min-device-width: 768px) {
       .desktop-layout {
         display: block;
       }
