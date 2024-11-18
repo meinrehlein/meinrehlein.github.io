@@ -17,13 +17,19 @@
     }
 
     /* MOBILE LAYOUT */
+    @media only screen and (max-width: 768px)
+    {
     .mobile-layout {
       display: block;  /* Default: Mobile layout is displayed */
+    }
+    .desktop-layout {
+      display: none;
     }
 
     .mobile-layout .container {
       height: 100%;
-      overflow-y: scroll;
+      overflow-y: clip
+    ;
     }
 
     .mobile-layout .rectangle {
@@ -32,7 +38,7 @@
       display: flex;
       justify-content: center;  /* Center horizontally */
       align-items: center;  /* Center vertically */
-      background-color: black;  /* Full black, no white at the bottom */
+      background-color: rgb(20, 67, 221);  /* Full black, no white at the bottom */
     }
 
     .mobile-layout .inner {
@@ -41,16 +47,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: black;  /* Black background for inner content */
+      background-color: rgb(20, 67, 221);  /* Black background for inner content */
     }
 
     /* Links on mobile - ensure white color, remove blue underline */
     .mobile-layout .word {
-      font-size: 4vw;
+      font-size: 6vw;
       opacity: 0;  /* Hidden initially */
       transition: opacity 0.5s ease-in-out;
       text-decoration: none; /* Remove underline */
-      color: white;  /* Ensure links are white throughout */
+      color: rgb(255, 187, 0);  /* Ensure links are white throughout */
     }
 
     .mobile-layout .visible .word {
@@ -62,6 +68,7 @@
       background-color: black;  /* Ensure container is fully black */
       border-bottom: 0px solid #000;  /* Remove any border or gaps at the end */
     }
+  }
 
     /* DESKTOP LAYOUT */
     @media only screen and (min-width: 768px) {
@@ -103,7 +110,18 @@
 </head>
 <body>
   <!-- Mobile layout (Appears on small devices) -->
+
+ 
+
+
   <div class="mobile-layout container">
+
+    <div class="rectangle">
+      <div class="inner">
+      </div>
+    </div>
+
+
     <div class="rectangle">
       <div class="inner">
         <a href="/aboutme" class="word">about me</a>  
@@ -116,6 +134,7 @@
       </div>
     </div>
 
+
     <div class="rectangle">
       <div class="inner">
         <a href="/aboutmywork" class="word">about my work</a>
@@ -125,6 +144,11 @@
     <div class="rectangle">
       <div class="inner">
         <a href="/contact" class="word">contact me</a>
+      </div>
+    </div>
+
+    <div class="rectangle">
+      <div class="inner">
       </div>
     </div>
   </div>
