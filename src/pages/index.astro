@@ -1,23 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensure proper scaling on mobile -->
-  <meta charset="UTF-8">
-  <title>Jannis Reinelt - Responsive Layout</title>
+  <title>Jannis Reinelt</title>
   
   <style>
     body, html {
       margin: 0;
       padding: 0;
       height: 100%;
+      background-color: black; /* Ensure full black background throughout */
       font-family: Arial, sans-serif;
+      color: white;
       overflow-x: hidden;
     }
 
     /* MOBILE LAYOUT */
     .mobile-layout {
-      display: block;  /* Default to showing on small screens */
+      display: block;  /* Default: Mobile layout is displayed */
     }
 
     .mobile-layout .container {
@@ -31,7 +32,7 @@
       display: flex;
       justify-content: center;  /* Center horizontally */
       align-items: center;  /* Center vertically */
-      background-color: black;
+      background-color: black;  /* Full black, no white at the bottom */
     }
 
     .mobile-layout .inner {
@@ -40,39 +41,45 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: black;
+      background-color: black;  /* Black background for inner content */
     }
 
-    /* Links in the mobile layout (fades in when becoming visible) */
+    /* Links on mobile - ensure white color, remove blue underline */
     .mobile-layout .word {
       font-size: 4vw;
-      opacity: 0;  /* Start hidden */
+      opacity: 0;  /* Hidden initially */
       transition: opacity 0.5s ease-in-out;
-      text-decoration: none;
-      color: white;
+      text-decoration: none; /* Remove underline */
+      color: white;  /* Ensure links are white throughout */
     }
 
     .mobile-layout .visible .word {
-      opacity: 1; /* Fade-in */
+      opacity: 1; /* Show links by fading in */
     }
 
-    /* DESKTOP LAYOUT (Hidden by default to show only on larger screens) */
+    /* Ensures that no white gaps appear on a mobile viewport */
+    .mobile-layout .container {
+      background-color: black;  /* Ensure container is fully black */
+      border-bottom: 0px solid #000;  /* Remove any border or gaps at the end */
+    }
+
+    /* DESKTOP LAYOUT */
     @media only screen and (min-width: 768px) {
       .desktop-layout {
-        display: block;  /* Show desktop layout */
+        display: block;
       }
-      
+
       .mobile-layout {
-        display: none;  /* Hide mobile layout on larger screens */
+        display: none;  /* Hide Mobile Layout on desktops */
       }
 
       .desktop-layout .rectangle {
-        width: 25%;  /* Each desktop rectangle takes 25% of screen width */
-        height: 100vh;
+        width: 25%;
+        height: 100vh;  /* Full height of viewport */
         float: left;
         position: relative;
         cursor: pointer;
-        background-color: black;
+        background-color: black;  /* Full black for desktop rectangles too */
       }
       
       .desktop-layout .word {
@@ -83,46 +90,46 @@
         color: rgb(231, 145, 145);
         font-size: 2.7vw;
         opacity: 0;
-        transition: 0.5s ease-in-out;
+        transition: opacity 0.5s ease-in-out; /* Smooth fade for desktop hover */
       }
 
-      /* Hover effect to reveal words on desktop layout */
+      /* Hover effect to reveal words on desktop */
       .desktop-layout .rectangle:hover .word {
-        opacity: 1;
+        opacity: 1;  /* Show words on hover in desktop */
       }
     }
 
   </style>
 </head>
 <body>
-  <!-- Mobile layout (Appears on smaller screen sizes) -->
+  <!-- Mobile layout (Appears on small devices) -->
   <div class="mobile-layout container">
     <div class="rectangle">
       <div class="inner">
-        <a href="/aboutme" class="word">About Me</a>  
+        <a href="/aboutme" class="word">about me</a>  
       </div>
     </div>
 
     <div class="rectangle">
       <div class="inner">
-        <a href="/projects" class="word">Projects</a>
+        <a href="/projects" class="word">projects</a>
       </div>
     </div>
 
     <div class="rectangle">
       <div class="inner">
-        <a href="/aboutmywork" class="word">About My Work</a>
+        <a href="/aboutmywork" class="word">about my work</a>
       </div>
     </div>
 
     <div class="rectangle">
       <div class="inner">
-        <a href="/contact" class="word">Contact Me</a>
+        <a href="/contact" class="word">contact me</a>
       </div>
     </div>
   </div>
 
-  <!-- Desktop layout (Appears on larger screen sizes) -->
+  <!-- Desktop layout (Appears only on larger screens) -->
   <div class="desktop-layout">
     <div class="rectangle">
       <a href="/aboutme" style="text-decoration: none;">
@@ -150,31 +157,29 @@
   </div>
 
   <script>
-    // JavaScript for mobile layout
+    // JavaScript to manage IntersectionObserver fade-in for mobile links
     const inners = document.querySelectorAll('.mobile-layout .inner');
 
-    // IntersectionObserver options for detecting in the 30%-40% zone
+    // IntersectionObserver options for detecting the 30%-40% zone
     const observerOptions = {
       root: null,
       rootMargin: '-30% 0px -60% 0px',
       threshold: 0
     };
 
-    // Observer callback
+    // Observer callback function
     const observerCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');  // Add 'visible' to fade in
+          entry.target.classList.add('visible');  // Add 'visible' to apply fade-in
         } else {
-          entry.target.classList.remove('visible');  // Remove 'visible' to fade out
+          entry.target.classList.remove('visible');  // Remove class to fade out links
         }
       });
     };
 
-    // Create an Intersection Observer
+    // Apply IntersectionObserver on all inner rectangles for mobile layout
     const observer = new IntersectionObserver(observerCallback, observerOptions);
-
-    // Observe all inner rectangles (mobile layout)
     inners.forEach(inner => observer.observe(inner));
   </script>
 </body>
