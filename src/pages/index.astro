@@ -3,110 +3,186 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jannis Reinelt - Mobile Scroll Links</title>
+  <title>Jannis Reinelt - Responsive Layout</title>
+  
   <style>
-    /* Ensures that the body and html take the full height of the viewport */
+    /* Global styles */
     body, html {
       margin: 0;
       padding: 0;
-      height: 100%; 
+      height: 100%;
       font-family: Arial, sans-serif;
-      background-color: black; /* Black background */
-      scroll-behavior: smooth; /* For smooth scrolling */
-      overflow-x: hidden; /* Prevent horizontal scroll issues */
+      overflow-x: hidden;
     }
 
-    /* Full-height sections centered vertically and horizontally */
-    .section {
+    /* WHITE Background for the whole body */
+    body {
+      background-color: rgb(255, 255, 255); 
+    }
+
+    /* Common link styles no matter the layout */
+    .word {
+      font-size: 4vw;  
+      text-decoration: none;
+      color: white;
+      transition: opacity 0.5s ease-in-out;  /* Smooth fade-in and out */
+      opacity: 0;  /* Start hidden */
+    }
+
+    .visible .word {
+      opacity: 1;  /* Fade in when the visible class is added */
+    }
+
+    /* Layout for DESKTOP - Big Screens */
+
+    .desktop-layout {
+      display: none; 
+    }
+
+    .desktop-layout .rectangle {
+      width: 25%;  /* Each rectangle is 25% of the screen's width */
+      height: 100vh;  /* Full viewport height */
+      position: relative;
+      float: left;
+      cursor: pointer;
+      background-color: rgb(0, 0, 0);  /* Black rectangles */
+    }
+
+    .desktop-layout .word {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: rgb(231, 145, 145); /* On hover, pinkish text */
+      font-size: 2.7vw;  
+    }
+    
+    .desktop-layout .rectangle:hover .word {
+      opacity: 1;  /* Hover effect to show words */
+    }
+
+    /* Layout for MOBILE - Small Screens */
+
+    .mobile-layout {
+      display: block;  /* By default mobile layout is visible */
+    }
+
+    /* Outer rectangle takes 50% of the viewport height */
+    .mobile-layout .rectangle {
+      width: 100%;
+      height: 50vh;
+      display: flex;
+      justify-content: center;  /* Center inner rectangle horizontally */
+      align-items: center;  /* Center inner rectangle vertically */
+      background-color: black;  /* Make outer rectangles fully black */
+    }
+
+    /* Inner rectangle centered, fully black */
+    .mobile-layout .inner {
+      width: 80%;
+      height: 15vh;  /* Inner rectangle is 15% of viewport */
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh; /* Occupies entire viewport height */
-      position: relative;
-      opacity: 0; /* Initially hidden */
-      transition: opacity 0.8s ease; /* Smooth fade-in/out instead of movement */
-      text-align: center;
-      font-size: 6vw; /* Responsive font size */
-      color: white; /* Make the text white */
+      background-color: black;
     }
 
-    /* Visible class that fades in with full opacity */
-    .visible {
-      opacity: 1; 
-    }
+    /* Media query to SHOW Desktop Layouts & HIDE Mobile Layouts on large screens */
+    @media only screen and (min-width: 768px) {
+      .desktop-layout { 
+        display: block; /* Show desktop layout on larger screens */
+      }
 
-    /* Link styling overrides the default blue/underline */
-    a {
-      text-decoration: none; /* Removes underline */
-      color: white;  /* Ensures links are white */
-    }
-
-    /* Flexbox container for scroll snapping behavior on touch */
-    .container {
-      height: 100vh;
-      overflow-y: scroll; /* Vertical scroll for mobile */
-      scroll-snap-type: y mandatory; /* Each section snaps on scroll */
-    }
-
-    /* Snap the sections to the center for smooth full-page scroll */
-    .section {
-      scroll-snap-align: center;
-    }
-
-    /* Hide scrollbar for a cleaner look, optional */
-    ::-webkit-scrollbar {
-      width: 0;
-      background: transparent;
+      .mobile-layout {
+        display: none; /* Hide mobile layout on larger screens */
+      }
     }
   </style>
 </head>
-
 <body>
-  <!-- Container housing all the sections -->
-  <div class="container">
-    
-    <!-- Each section represents a link or a page (Initially just 'about me') -->
+  <!-- Desktop Layout (to be shown on larger screens) -->
+  <div class="desktop-layout">
 
-    <section id="section-1" class="section visible">
-      <a href="/aboutme" class="link">About Me</a>
-    </section>
+    <div class="rectangle">
+      <a href="/aboutme" style="text-decoration: none;">
+        <div class="word">About Me</div>
+      </a>
+    </div>
 
-    <section id="section-2" class="section">
-      <a href="/projects" class="link">Projects</a>
-    </section>
+    <div class="rectangle">
+      <a href="/projects" style="text-decoration: none;">
+        <div class="word">Projects</div>
+      </a>
+    </div>
 
-    <section id="section-3" class="section">
-      <a href="/aboutmywork" class="link">About My Work</a>
-    </section>
+    <div class="rectangle">
+      <a href="/aboutmywork" style="text-decoration: none;">
+        <div class="word">About My Work</div>
+      </a>
+    </div>
 
-    <section id="section-4" class="section">
-      <a href="/contact" class="link">Contact Me</a>
-    </section>
+    <div class="rectangle">
+      <a href="/contact" style="text-decoration: none;">
+        <div class="word">Contact Me</div>
+      </a>
+    </div>
 
   </div>
 
-  <!-- JavaScript to manage fade-in/out behavior -->
+  <!-- Mobile Layout (to be shown on smaller screens) -->
+  <div class="mobile-layout container">
+    <div class="rectangle">
+      <div class="inner">
+        <a href="/aboutme" class="word">About Me</a>
+      </div>
+    </div>
+
+    <div class="rectangle">
+      <div class="inner">
+        <a href="/projects" class="word">Projects</a>
+      </div>
+    </div>
+
+    <div class="rectangle">
+      <div class="inner">
+        <a href="/aboutmywork" class="word">About My Work</a>
+      </div>
+    </div>
+
+    <div class="rectangle">
+      <div class="inner">
+        <a href="/contact" class="word">Contact Me</a>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // Collect all sections
-    const sections = document.querySelectorAll('.section');
+    // JavaScript for the Mobile Layout (Intersection Observer)
+    const inners = document.querySelectorAll('.mobile-layout .inner');
 
-    // Modify opacity (fade in/out) based on scrolling position
-    window.addEventListener('scroll', () => {
-      // Get the vertical scroll position from the top
-      const scrollPos = window.scrollY;
+    // Intersection Observer options (30%-40% detection zone from viewport top)
+    const observerOptions = {
+      root: null,  // Root is the viewport
+      rootMargin: '-30% 0px -60% 0px',  // Trigger between 30% and 40% of the viewport
+      threshold: 0  // Trigger as soon as the rectangle enters this zone
+    };
 
-      sections.forEach((section) => {
-        // Calculate the vertical middle of the current section relative to viewport
-        const sectionMiddle = section.offsetTop - window.innerHeight / 2 + section.clientHeight / 2;
-
-        // If the scroll position is within the "middle" area of this section, show it
-        if (scrollPos > sectionMiddle - 100 && scrollPos < sectionMiddle + 100) {
-          section.classList.add('visible');
+    // Observer callback to add or remove 'visible' class
+    const observerCallback = (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');  // Add 'visible' class to fade in
         } else {
-          section.classList.remove('visible');
+          entry.target.classList.remove('visible');  // Remove 'visible'
         }
       });
-    });
+    };
+
+    // Create the Intersection Observer
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    // Observe all inner rectangles in the mobile layout
+    inners.forEach(inner => observer.observe(inner));
   </script>
 </body>
 </html>
