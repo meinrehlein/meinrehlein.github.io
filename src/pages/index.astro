@@ -1,66 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Jannis Reinelt</title>
-<style>
-  body {
-    background-color: rgb(255, 255, 255);
-    margin: 0;
-    padding: 0;
-  }
-  
-  .rectangle {
-    width: 25%;
-    height: 100vh;
-    float: left;
-    position: relative;
-    cursor: pointer;
-    background-color: rgb(0, 0, 0); /* This is to visualize the rectangles */
-  }
-  
-  .rectangle:hover .word {
-    opacity: 1;
-  }
-  
-  .word {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    color: rgb(231, 145, 145); /* Black text on whiter rectangles */
-    font-size: 2.7vw;
-    opacity: 0;
-    transition: opacity 2s ease;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jannis Reinelt - Mobile Scroll Links</title>
+  <style>
+    /* Ensures that the body and html take the full height of the viewport */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%; 
+      font-family: Arial, sans-serif;
+      background-color: black; /* Black background */
+      scroll-behavior: smooth; /* For smooth scrolling */
+      overflow-x: hidden; /* Prevent horizontal scroll issues */
+    }
+
+    /* Full-height sections centered vertically and horizontally */
+    .section {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh; /* Occupies entire viewport height */
+      position: relative;
+      opacity: 0; /* Initially hidden */
+      transition: opacity 0.8s ease; /* Smooth fade-in/out instead of movement */
+      text-align: center;
+      font-size: 6vw; /* Responsive font size */
+      color: white; /* Make the text white */
+    }
+
+    /* Visible class that fades in with full opacity */
+    .visible {
+      opacity: 1; 
+    }
+
+    /* Link styling overrides the default blue/underline */
+    a {
+      text-decoration: none; /* Removes underline */
+      color: white;  /* Ensures links are white */
+    }
+
+    /* Flexbox container for scroll snapping behavior on touch */
+    .container {
+      height: 100vh;
+      overflow-y: scroll; /* Vertical scroll for mobile */
+      scroll-snap-type: y mandatory; /* Each section snaps on scroll */
+    }
+
+    /* Snap the sections to the center for smooth full-page scroll */
+    .section {
+      scroll-snap-align: center;
+    }
+
+    /* Hide scrollbar for a cleaner look, optional */
+    ::-webkit-scrollbar {
+      width: 0;
+      background: transparent;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Container housing all the sections -->
+  <div class="container">
+    
+    <!-- Each section represents a link or a page (Initially just 'about me') -->
 
-<div class="rectangle">
-  <a href="/aboutme" style="text-decoration: none; color: black;">
-    <div class="word">about me</div>
-  </a>
-</div>
+    <section id="section-1" class="section visible">
+      <a href="/aboutme" class="link">About Me</a>
+    </section>
 
-<div class="rectangle">
-  <a href="/projects" style="text-decoration: none; color: black;">
-    <div class="word">projects</div>
-  </a> 
-</div>
+    <section id="section-2" class="section">
+      <a href="/projects" class="link">Projects</a>
+    </section>
 
-<div class="rectangle">
-  <a href="/aboutmywork" style="text-decoration: none; color: black;">
-    <div class="word">about my work</div>
-  </a>
-</div>
+    <section id="section-3" class="section">
+      <a href="/aboutmywork" class="link">About My Work</a>
+    </section>
 
-<div class="rectangle">
-  <a href="/contact" style="text-decoration: none; color: black;">
-    <div class="word">contact me</div>
-  </a>
-</div>
+    <section id="section-4" class="section">
+      <a href="/contact" class="link">Contact Me</a>
+    </section>
 
+  </div>
+
+  <!-- JavaScript to manage fade-in/out behavior -->
+  <script>
+    // Collect all sections
+    const sections = document.querySelectorAll('.section');
+
+    // Modify opacity (fade in/out) based on scrolling position
+    window.addEventListener('scroll', () => {
+      // Get the vertical scroll position from the top
+      const scrollPos = window.scrollY;
+
+      sections.forEach((section) => {
+        // Calculate the vertical middle of the current section relative to viewport
+        const sectionMiddle = section.offsetTop - window.innerHeight / 2 + section.clientHeight / 2;
+
+        // If the scroll position is within the "middle" area of this section, show it
+        if (scrollPos > sectionMiddle - 100 && scrollPos < sectionMiddle + 100) {
+          section.classList.add('visible');
+        } else {
+          section.classList.remove('visible');
+        }
+      });
+    });
+  </script>
 </body>
 </html>
-
