@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jannis Reinelt - Responsive Layout</title>
-  
   <style>
-    /* Global styles */
     body, html {
       margin: 0;
       padding: 0;
@@ -15,94 +13,103 @@
       overflow-x: hidden;
     }
 
-    /* WHITE Background for the whole body */
-    body {
-      background-color: rgb(255, 255, 255); 
-    }
-
-    /* Common link styles no matter the layout */
-    .word {
-      font-size: 4vw;  
-      text-decoration: none;
-      color: white;
-      transition: opacity 0.5s ease-in-out;  /* Smooth fade-in and out */
-      opacity: 0;  /* Start hidden */
-    }
-
-    .visible .word {
-      opacity: 1;  /* Fade in when the visible class is added */
-    }
-
-    /* Layout for DESKTOP - Big Screens */
-
-    .desktop-layout {
-      display: none; 
-    }
-
-    .desktop-layout .rectangle {
-      width: 25%;  /* Each rectangle is 25% of the screen's width */
-      height: 100vh;  /* Full viewport height */
-      position: relative;
-      float: left;
-      cursor: pointer;
-      background-color: rgb(0, 0, 0);  /* Black rectangles */
-    }
-
-    .desktop-layout .word {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: rgb(231, 145, 145); /* On hover, pinkish text */
-      font-size: 2.7vw;  
-    }
-    
-    .desktop-layout .rectangle:hover .word {
-      opacity: 1;  /* Hover effect to show words */
-    }
-
-    /* Layout for MOBILE - Small Screens */
-
+    /* ------------------------------------------------ */
+    /* MOBILE LAYOUT (Visible on small screens) */
     .mobile-layout {
-      display: block;  /* By default mobile layout is visible */
+      display: block; /* Mobile layout will be shown on small devices */
     }
 
-    /* Outer rectangle takes 50% of the viewport height */
+    /* Scrollable container for mobile */
+    .mobile-layout .container {
+      height: 100%;
+      overflow-y: scroll;  /* Enable vertical scrolling */
+    }
+
+    /* Black, frame-free outer rectangles in mobile */
     .mobile-layout .rectangle {
       width: 100%;
-      height: 50vh;
+      height: 50vh; /* Outer rectangle takes 50% of the viewport's height */
       display: flex;
       justify-content: center;  /* Center inner rectangle horizontally */
       align-items: center;  /* Center inner rectangle vertically */
-      background-color: black;  /* Make outer rectangles fully black */
+      background-color: black;  /* Full black background */
     }
 
-    /* Inner rectangle centered, fully black */
+    /* Inner rectangle in mobile (with link) */
     .mobile-layout .inner {
       width: 80%;
-      height: 15vh;  /* Inner rectangle is 15% of viewport */
+      height: 15vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: black;
+      background-color: black;  /* Fully black inner rectangle */
     }
 
-    /* Media query to SHOW Desktop Layouts & HIDE Mobile Layouts on large screens */
+    /* Words inside the inner rectangle (Acts as links on mobile) */
+    .mobile-layout .word {
+      font-size: 4vw;
+      opacity: 0;  /* Hidden initially */
+      transition: opacity 0.5s ease-in-out;
+      text-decoration: none;  /* Remove links' underline */
+      color: white;  /* White clickable links */
+    }
+
+    /* For mobile layout, fade in words when 'visible' class is added */
+    .mobile-layout .visible .word {
+      opacity: 1;  /* Words fade in */
+    }
+
+    /* ------------------------------------------------ */
+    /* DESKTOP LAYOUT (Visible on larger screens) */
+    .desktop-layout {
+      display: none;  /* Hidden by default (only for larger devices) */
+    }
+
+    /* Once viewport is wide enough, display desktop layout */
     @media only screen and (min-width: 768px) {
-      .desktop-layout { 
-        display: block; /* Show desktop layout on larger screens */
+
+      /* Show desktop layout and hide mobile layout for larger screens */
+      .desktop-layout {
+        display: block;  /* Desktop layout enabled on large screens */
       }
 
       .mobile-layout {
-        display: none; /* Hide mobile layout on larger screens */
+        display: none;  /* Hide mobile layout on large screens */
+      }
+
+      /* Rectangles take 25% of screen width in desktop layout */
+      .desktop-layout .rectangle {
+        width: 25%;
+        height: 100vh; /* Full height of viewport */
+        float: left;
+        position: relative;
+        cursor: pointer;
+        background-color: black;  /* Fully black background */
+      }
+      
+      /* Position words in the center for desktop layout */
+      .desktop-layout .word {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: rgb(231, 145, 145); /* Pinkish color */
+        font-size: 2.7vw;
+        opacity: 0;  /* Initially hidden */
+        transition: 0.2s ease;  /* Fast fade-in on hover */
+      }
+
+      /* Hover effect to reveal words in desktop layout */
+      .desktop-layout .rectangle:hover .word {
+        opacity: 1;
       }
     }
+
   </style>
 </head>
 <body>
-  <!-- Desktop Layout (to be shown on larger screens) -->
+  <!-- Desktop Layout (Displayed on larger devices) -->
   <div class="desktop-layout">
-
     <div class="rectangle">
       <a href="/aboutme" style="text-decoration: none;">
         <div class="word">About Me</div>
@@ -112,7 +119,7 @@
     <div class="rectangle">
       <a href="/projects" style="text-decoration: none;">
         <div class="word">Projects</div>
-      </a>
+      </a> 
     </div>
 
     <div class="rectangle">
@@ -126,14 +133,13 @@
         <div class="word">Contact Me</div>
       </a>
     </div>
-
   </div>
 
-  <!-- Mobile Layout (to be shown on smaller screens) -->
+  <!-- Mobile Layout (Displayed on small devices) -->
   <div class="mobile-layout container">
     <div class="rectangle">
       <div class="inner">
-        <a href="/aboutme" class="word">About Me</a>
+        <a href="/aboutme" class="word">About Me</a>  
       </div>
     </div>
 
@@ -157,31 +163,31 @@
   </div>
 
   <script>
-    // JavaScript for the Mobile Layout (Intersection Observer)
+    // JavaScript for fading the words in the Mobile Layout
     const inners = document.querySelectorAll('.mobile-layout .inner');
 
-    // Intersection Observer options (30%-40% detection zone from viewport top)
+    // Intersection Observer options (30%-40% from top)
     const observerOptions = {
-      root: null,  // Root is the viewport
-      rootMargin: '-30% 0px -60% 0px',  // Trigger between 30% and 40% of the viewport
-      threshold: 0  // Trigger as soon as the rectangle enters this zone
+      root: null,  // Use the viewport as the root
+      rootMargin: '-30% 0px -60% 0px',  // Zone is defined between 30% and 40% of viewport
+      threshold: 0  // Trigger as soon as the inner rectangle enters this zone
     };
 
-    // Observer callback to add or remove 'visible' class
-    const observerCallback = (entries) => {
+    // Observer callback using IntersectionObserver API
+    const observerCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');  // Add 'visible' class to fade in
+          entry.target.classList.add('visible');  // Add 'visible' to fade in words
         } else {
-          entry.target.classList.remove('visible');  // Remove 'visible'
+          entry.target.classList.remove('visible');  // Remove 'visible' to fade out words
         }
       });
     };
 
-    // Create the Intersection Observer
+    // Create and launch the Intersection Observer
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // Observe all inner rectangles in the mobile layout
+    // Observe all inner rectangles
     inners.forEach(inner => observer.observe(inner));
   </script>
 </body>
