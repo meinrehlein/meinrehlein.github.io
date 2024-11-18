@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Ensure proper scaling on mobile -->
   <meta charset="UTF-8">
   <title>Jannis Reinelt - Responsive Layout</title>
+  
   <style>
     body, html {
       margin: 0;
@@ -13,93 +15,78 @@
       overflow-x: hidden;
     }
 
-    /* ------------------------------------------------ */
-    /* MOBILE LAYOUT (Visible on small screens) */
+    /* MOBILE LAYOUT */
     .mobile-layout {
-      display: block; /* Mobile layout will be shown on small devices */
+      display: block;  /* Default to showing on small screens */
     }
 
-    /* Scrollable container for mobile */
     .mobile-layout .container {
       height: 100%;
-      overflow-y: scroll;  /* Enable vertical scrolling */
+      overflow-y: scroll;
     }
 
-    /* Black, frame-free outer rectangles in mobile */
     .mobile-layout .rectangle {
       width: 100%;
-      height: 50vh; /* Outer rectangle takes 50% of the viewport's height */
+      height: 50vh;  /* Each rectangle takes 50% of viewport height */
       display: flex;
-      justify-content: center;  /* Center inner rectangle horizontally */
-      align-items: center;  /* Center inner rectangle vertically */
-      background-color: black;  /* Full black background */
+      justify-content: center;  /* Center horizontally */
+      align-items: center;  /* Center vertically */
+      background-color: black;
     }
 
-    /* Inner rectangle in mobile (with link) */
     .mobile-layout .inner {
       width: 80%;
       height: 15vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      background-color: black;  /* Fully black inner rectangle */
+      background-color: black;
     }
 
-    /* Words inside the inner rectangle (Acts as links on mobile) */
+    /* Links in the mobile layout (fades in when becoming visible) */
     .mobile-layout .word {
       font-size: 4vw;
-      opacity: 0;  /* Hidden initially */
+      opacity: 0;  /* Start hidden */
       transition: opacity 0.5s ease-in-out;
-      text-decoration: none;  /* Remove links' underline */
-      color: white;  /* White clickable links */
+      text-decoration: none;
+      color: white;
     }
 
-    /* For mobile layout, fade in words when 'visible' class is added */
     .mobile-layout .visible .word {
-      opacity: 1;  /* Words fade in */
+      opacity: 1; /* Fade-in */
     }
 
-    /* ------------------------------------------------ */
-    /* DESKTOP LAYOUT (Visible on larger screens) */
-    .desktop-layout {
-      display: none;  /* Hidden by default (only for larger devices) */
-    }
-
-    /* Once viewport is wide enough, display desktop layout */
+    /* DESKTOP LAYOUT (Hidden by default to show only on larger screens) */
     @media only screen and (min-width: 768px) {
-
-      /* Show desktop layout and hide mobile layout for larger screens */
       .desktop-layout {
-        display: block;  /* Desktop layout enabled on large screens */
+        display: block;  /* Show desktop layout */
       }
-
+      
       .mobile-layout {
-        display: none;  /* Hide mobile layout on large screens */
+        display: none;  /* Hide mobile layout on larger screens */
       }
 
-      /* Rectangles take 25% of screen width in desktop layout */
       .desktop-layout .rectangle {
-        width: 25%;
-        height: 100vh; /* Full height of viewport */
+        width: 25%;  /* Each desktop rectangle takes 25% of screen width */
+        height: 100vh;
         float: left;
         position: relative;
         cursor: pointer;
-        background-color: black;  /* Fully black background */
+        background-color: black;
       }
       
-      /* Position words in the center for desktop layout */
       .desktop-layout .word {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        color: rgb(231, 145, 145); /* Pinkish color */
+        color: rgb(231, 145, 145);
         font-size: 2.7vw;
-        opacity: 0;  /* Initially hidden */
-        transition: 0.2s ease;  /* Fast fade-in on hover */
+        opacity: 0;
+        transition: 0.5s ease-in-out;
       }
 
-      /* Hover effect to reveal words in desktop layout */
+      /* Hover effect to reveal words on desktop layout */
       .desktop-layout .rectangle:hover .word {
         opacity: 1;
       }
@@ -108,34 +95,7 @@
   </style>
 </head>
 <body>
-  <!-- Desktop Layout (Displayed on larger devices) -->
-  <div class="desktop-layout">
-    <div class="rectangle">
-      <a href="/aboutme" style="text-decoration: none;">
-        <div class="word">About Me</div>
-      </a>
-    </div>
-
-    <div class="rectangle">
-      <a href="/projects" style="text-decoration: none;">
-        <div class="word">Projects</div>
-      </a> 
-    </div>
-
-    <div class="rectangle">
-      <a href="/aboutmywork" style="text-decoration: none;">
-        <div class="word">About My Work</div>
-      </a>
-    </div>
-
-    <div class="rectangle">
-      <a href="/contact" style="text-decoration: none;">
-        <div class="word">Contact Me</div>
-      </a>
-    </div>
-  </div>
-
-  <!-- Mobile Layout (Displayed on small devices) -->
+  <!-- Mobile layout (Appears on smaller screen sizes) -->
   <div class="mobile-layout container">
     <div class="rectangle">
       <div class="inner">
@@ -162,32 +122,59 @@
     </div>
   </div>
 
+  <!-- Desktop layout (Appears on larger screen sizes) -->
+  <div class="desktop-layout">
+    <div class="rectangle">
+      <a href="/aboutme" style="text-decoration: none;">
+        <div class="word">About Me</div>
+      </a>
+    </div>
+
+    <div class="rectangle">
+      <a href="/projects" style="text-decoration: none;">
+        <div class="word">Projects</div>
+      </a> 
+    </div>
+
+    <div class="rectangle">
+      <a href="/aboutmywork" style="text-decoration: none;">
+        <div class="word">About My Work</div>
+      </a>
+    </div>
+
+    <div class="rectangle">
+      <a href="/contact" style="text-decoration: none;">
+        <div class="word">Contact Me</div>
+      </a>
+    </div>
+  </div>
+
   <script>
-    // JavaScript for fading the words in the Mobile Layout
+    // JavaScript for mobile layout
     const inners = document.querySelectorAll('.mobile-layout .inner');
 
-    // Intersection Observer options (30%-40% from top)
+    // IntersectionObserver options for detecting in the 30%-40% zone
     const observerOptions = {
-      root: null,  // Use the viewport as the root
-      rootMargin: '-30% 0px -60% 0px',  // Zone is defined between 30% and 40% of viewport
-      threshold: 0  // Trigger as soon as the inner rectangle enters this zone
+      root: null,
+      rootMargin: '-30% 0px -60% 0px',
+      threshold: 0
     };
 
-    // Observer callback using IntersectionObserver API
+    // Observer callback
     const observerCallback = (entries: IntersectionObserverEntry[], observer: IntersectionObserver) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('visible');  // Add 'visible' to fade in words
+          entry.target.classList.add('visible');  // Add 'visible' to fade in
         } else {
-          entry.target.classList.remove('visible');  // Remove 'visible' to fade out words
+          entry.target.classList.remove('visible');  // Remove 'visible' to fade out
         }
       });
     };
 
-    // Create and launch the Intersection Observer
+    // Create an Intersection Observer
     const observer = new IntersectionObserver(observerCallback, observerOptions);
 
-    // Observe all inner rectangles
+    // Observe all inner rectangles (mobile layout)
     inners.forEach(inner => observer.observe(inner));
   </script>
 </body>
